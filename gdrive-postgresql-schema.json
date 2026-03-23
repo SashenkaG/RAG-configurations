@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "wso2": {
+      "type": "object",
+      "properties": {
+        "rag_ingestion": {
+          "type": "object",
+          "title": "Google Drive to PostgreSQL Configuration",
+          "properties": {
+            "gdriveApiKey": {
+              "type": "string",
+              "format": "password",
+              "title": "Google Drive API Key"
+            },
+            "gdriveFolderId": {
+              "type": "string",
+              "title": "Google Drive Folder ID"
+            },
+            "postgresHost": {
+              "type": "string",
+              "title": "PostgreSQL Host"
+            },
+            "postgresPort": {
+              "type": "integer",
+              "title": "PostgreSQL Port",
+              "default": 5432
+            },
+            "postgresUser": {
+              "type": "string",
+              "title": "PostgreSQL User"
+            },
+            "postgresPassword": {
+              "type": "string",
+              "format": "password",
+              "title": "PostgreSQL Password"
+            },
+            "postgresDb": {
+              "type": "string",
+              "title": "PostgreSQL Database"
+            },
+            "postgresTable": {
+              "type": "string",
+              "title": "PostgreSQL Table Name"
+            },
+            "embeddingProvider": {
+              "type": "string",
+              "title": "Embedding Provider",
+              "enum": ["openai", "azure"],
+              "default": "openai"
+            },
+            "embeddingModel": {
+              "type": "string",
+              "title": "Embedding Model"
+            },
+            "embeddingApiKey": {
+              "type": "string",
+              "format": "password",
+              "title": "Embedding API Key"
+            },
+            "azureBaseUrl": {
+              "type": "string",
+              "title": "Azure Base URL"
+            },
+            "azureApiVersion": {
+              "type": "string",
+              "title": "Azure API Version"
+            },
+            "chunkingStrategy": {
+              "type": "string",
+              "enum": ["recursive", "sentence", "character"],
+              "default": "recursive",
+              "title": "Chunking Strategy"
+            },
+            "maxSegmentSize": {
+              "type": "integer",
+              "default": 500,
+              "minimum": 1,
+              "title": "Max Segment Size"
+            },
+            "maxOverlapSize": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "title": "Max Overlap Size"
+            }
+          },
+          "required": ["gdriveApiKey", "gdriveFolderId", "postgresHost", "postgresPort", "postgresUser", "postgresPassword", "postgresDb", "postgresTable", "embeddingProvider", "embeddingModel", "embeddingApiKey"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
