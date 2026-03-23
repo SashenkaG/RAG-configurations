@@ -48,109 +48,101 @@
               "additionalProperties": false
             },
             "embedding": {
-              "oneOf": [
+              "type": "object",
+              "title": "Embedding Configuration",
+              "properties": {
+                "embeddingProvider": {
+                  "type": "string",
+                  "title": "Embedding Provider",
+                  "enum": ["openai", "azure-openai", "mistral"]
+                },
+                "embeddingModel": {
+                  "type": "string",
+                  "title": "Embedding Model"
+                },
+                "embeddingApiKey": {
+                  "type": "string",
+                  "format": "password",
+                  "title": "Embedding API Key",
+                  "description": "API key for OpenAI, Azure OpenAI, or Mistral (depending on provider selected)"
+                },
+                "azureBaseUrl": {
+                  "type": "string",
+                  "title": "Azure Base URL",
+                  "description": "Required if using Azure OpenAI. Format: https://resource-name.openai.azure.com/openai"
+                },
+                "azureApiVersion": {
+                  "type": "string",
+                  "title": "Azure API Version",
+                  "default": "2024-06-01",
+                  "description": "Required if using Azure OpenAI. Example: 2024-06-01"
+                }
+              },
+              "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey"],
+              "additionalProperties": false,
+              "allOf": [
                 {
-                  "type": "object",
-                  "title": "Embedding Configuration - OpenAI",
-                  "properties": {
-                    "embeddingProvider": {
-                      "const": "openai",
-                      "type": "string",
-                      "title": "Embedding Provider"
+                  "if": {
+                    "properties": {
+                      "embeddingProvider": {
+                        "const": "openai"
+                      }
                     },
-                    "embeddingModel": {
-                      "type": "string",
-                      "title": "Embedding Model",
-                      "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
-                    },
-                    "embeddingApiKey": {
-                      "type": "string",
-                      "format": "password",
-                      "title": "Embedding API Key",
-                      "description": "OpenAI API key"
-                    },
-                    "azureBaseUrl": {
-                      "type": "string",
-                      "title": "Azure Base URL"
-                    },
-                    "azureApiVersion": {
-                      "type": "string",
-                      "title": "Azure API Version"
-                    }
+                    "required": ["embeddingProvider"]
                   },
-                  "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey"],
-                  "additionalProperties": false
+                  "then": {
+                    "properties": {
+                      "embeddingModel": {
+                        "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+                      }
+                    }
+                  }
                 },
                 {
-                  "type": "object",
-                  "title": "Embedding Configuration - Azure OpenAI",
-                  "properties": {
-                    "embeddingProvider": {
-                      "const": "azure-openai",
-                      "type": "string",
-                      "title": "Embedding Provider"
+                  "if": {
+                    "properties": {
+                      "embeddingProvider": {
+                        "const": "azure-openai"
+                      }
                     },
-                    "embeddingModel": {
-                      "type": "string",
-                      "title": "Embedding Model",
-                      "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
-                    },
-                    "embeddingApiKey": {
-                      "type": "string",
-                      "format": "password",
-                      "title": "Embedding API Key",
-                      "description": "Azure OpenAI API key"
-                    },
-                    "azureBaseUrl": {
-                      "type": "string",
-                      "title": "Azure Base URL",
-                      "description": "Format: https://resource-name.openai.azure.com/openai"
-                    },
-                    "azureApiVersion": {
-                      "type": "string",
-                      "title": "Azure API Version",
-                      "default": "2024-06-01",
-                      "description": "Example: 2024-06-01"
-                    }
+                    "required": ["embeddingProvider"]
                   },
-                  "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey", "azureBaseUrl", "azureApiVersion"],
-                  "additionalProperties": false
+                  "then": {
+                    "properties": {
+                      "embeddingModel": {
+                        "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+                      }
+                    }
+                  }
                 },
                 {
-                  "type": "object",
-                  "title": "Embedding Configuration - Mistral",
-                  "properties": {
-                    "embeddingProvider": {
-                      "const": "mistral",
-                      "type": "string",
-                      "title": "Embedding Provider"
+                  "if": {
+                    "properties": {
+                      "embeddingProvider": {
+                        "const": "mistral"
+                      }
                     },
-                    "embeddingModel": {
-                      "type": "string",
-                      "title": "Embedding Model",
-                      "enum": ["mistral-embed"]
-                    },
-                    "embeddingApiKey": {
-                      "type": "string",
-                      "format": "password",
-                      "title": "Embedding API Key",
-                      "description": "Mistral API key"
-                    },
-                    "azureBaseUrl": {
-                      "type": "string",
-                      "title": "Azure Base URL"
-                    },
-                    "azureApiVersion": {
-                      "type": "string",
-                      "title": "Azure API Version"
-                    }
+                    "required": ["embeddingProvider"]
                   },
-                  "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey"],
-                  "additionalProperties": false
+                  "then": {
+                    "properties": {
+                      "embeddingModel": {
+                        "enum": ["mistral-embed"]
+                      }
+                    }
+                  }
                 }
               ],
-              "discriminator": {
-                "propertyName": "embeddingProvider"
+              "if": {
+                "properties": {
+                  "embeddingProvider": {
+                    "const": "azure-openai"
+                  }
+                },
+                "required": ["embeddingProvider"]
+              },
+              "then": {
+                "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey", "azureBaseUrl", "azureApiVersion"]
               }
             },
             "chunking": {
