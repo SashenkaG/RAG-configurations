@@ -4,24 +4,20 @@
     "connection": {
       "type": "object",
       "title": "RAG Configuration",
-      "required": ["datasource", "vectorDb", "embeddingProvider", "embeddingModel", "embeddingApiKey"],
       "properties": {
         "datasource": {
           "type": "string",
           "title": "Data Source",
-          "enum": ["gdrive", "s3"],
-          "description": "Select your data source"
+          "enum": ["gdrive", "s3"]
         },
         "gdriveApiKey": {
           "type": "string",
           "format": "password",
-          "title": "Google Drive API Key",
-          "description": "API key for Google Drive access"
+          "title": "Google Drive API Key"
         },
         "gdriveFolderId": {
           "type": "string",
-          "title": "Google Drive Folder ID",
-          "description": "Folder ID containing your documents"
+          "title": "Google Drive Folder ID"
         },
         "s3AccessKeyId": {
           "type": "string",
@@ -40,8 +36,7 @@
         "vectorDb": {
           "type": "string",
           "title": "Vector Database",
-          "enum": ["pinecone", "weaviate", "postgresql", "chroma"],
-          "description": "Select your vector database"
+          "enum": ["pinecone", "weaviate", "postgresql", "chroma"]
         },
         "pineconeApiKey": {
           "type": "string",
@@ -54,8 +49,7 @@
         },
         "weaviateUrl": {
           "type": "string",
-          "title": "Weaviate Cluster URL",
-          "format": "uri"
+          "title": "Weaviate Cluster URL"
         },
         "weaviateApiKey": {
           "type": "string",
@@ -108,13 +102,11 @@
         "embeddingProvider": {
           "type": "string",
           "title": "Embedding Provider",
-          "enum": ["openai", "azure"],
-          "description": "Choose your embedding model provider"
+          "enum": ["openai", "azure"]
         },
         "embeddingModel": {
           "type": "string",
-          "title": "Embedding Model",
-          "description": "Specify the embedding model to use"
+          "title": "Embedding Model"
         },
         "embeddingApiKey": {
           "type": "string",
@@ -123,32 +115,32 @@
         },
         "azureBaseUrl": {
           "type": "string",
-          "title": "Azure Base URL",
-          "format": "uri",
-          "description": "Required if using Azure as embedding provider"
+          "title": "Azure Base URL"
         },
         "azureApiVersion": {
           "type": "string",
-          "title": "Azure API Version",
-          "description": "e.g., 2024-02-15-preview"
+          "title": "Azure API Version"
         },
         "chunkingStrategy": {
           "type": "string",
-          "title": "Chunking Strategy",
-          "enum": ["fixed", "recursive", "sliding"],
-          "description": "Strategy for splitting documents into chunks"
+          "enum": ["recursive", "sentence", "character"],
+          "default": "recursive",
+          "title": "Chunking Strategy"
         },
         "maxSegmentSize": {
           "type": "integer",
-          "title": "Max Segment Size",
-          "description": "Maximum size of each chunk in characters"
+          "default": 500,
+          "minimum": 1,
+          "title": "Max Segment Size"
         },
         "maxOverlapSize": {
           "type": "integer",
-          "title": "Max Overlap Size",
-          "description": "Overlap between chunks for context continuity"
+          "default": 0,
+          "minimum": 0,
+          "title": "Max Overlap Size"
         }
-      }
+      },
+      "required": ["datasource", "vectorDb", "embeddingProvider", "embeddingModel", "embeddingApiKey"]
     }
   }
 }
