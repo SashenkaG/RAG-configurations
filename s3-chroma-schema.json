@@ -62,24 +62,7 @@
                 },
                 "embeddingModel": {
                   "type": "string",
-                  "title": "Embedding Model",
-                  "oneOf": [
-                    {
-                      "type": "string",
-                      "title": "OpenAI Models",
-                      "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
-                    },
-                    {
-                      "type": "string",
-                      "title": "Azure OpenAI Models",
-                      "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
-                    },
-                    {
-                      "type": "string",
-                      "title": "Mistral Models",
-                      "enum": ["mistral-embed"]
-                    }
-                  ]
+                  "title": "Embedding Model"
                 },
                 "embeddingApiKey": {
                   "type": "string",
@@ -101,6 +84,59 @@
               },
               "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey"],
               "additionalProperties": false,
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "embeddingProvider": {
+                        "const": "openai"
+                      }
+                    },
+                    "required": ["embeddingProvider"]
+                  },
+                  "then": {
+                    "properties": {
+                      "embeddingModel": {
+                        "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "embeddingProvider": {
+                        "const": "azure-openai"
+                      }
+                    },
+                    "required": ["embeddingProvider"]
+                  },
+                  "then": {
+                    "properties": {
+                      "embeddingModel": {
+                        "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "embeddingProvider": {
+                        "const": "mistral"
+                      }
+                    },
+                    "required": ["embeddingProvider"]
+                  },
+                  "then": {
+                    "properties": {
+                      "embeddingModel": {
+                        "enum": ["mistral-embed"]
+                      }
+                    }
+                  }
+                }
+              ],
               "if": {
                 "properties": {
                   "embeddingProvider": {
