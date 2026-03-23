@@ -1,141 +1,155 @@
 {
-  "title": "RAG Configuration",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "required": ["datasource", "vectorDb", "embeddingProvider", "embeddingModel", "embeddingApiKey"],
   "properties": {
-    "datasource": {
-      "type": "string",
-      "title": "Data Source",
-      "enum": ["gdrive", "s3"]
-    },
-    "gdriveApiKey": {
-      "type": "string",
-      "format": "password",
-      "title": "Google Drive API Key"
-    },
-    "gdriveFolderId": {
-      "type": "string",
-      "title": "Google Drive Folder ID"
-    },
-    "s3AccessKeyId": {
-      "type": "string",
-      "format": "password",
-      "title": "S3 Access Key ID"
-    },
-    "s3SecretKey": {
-      "type": "string",
-      "format": "password",
-      "title": "S3 Secret Access Key"
-    },
-    "s3BucketName": {
-      "type": "string",
-      "title": "S3 Bucket Name"
-    },
-    "vectorDb": {
-      "type": "string",
-      "title": "Vector Database",
-      "enum": ["pinecone", "weaviate", "postgresql", "chroma"]
-    },
-    "pineconeApiKey": {
-      "type": "string",
-      "format": "password",
-      "title": "Pinecone API Key"
-    },
-    "pineconeIndex": {
-      "type": "string",
-      "title": "Pinecone Index Name"
-    },
-    "weaviateUrl": {
-      "type": "string",
-      "title": "Weaviate Cluster URL"
-    },
-    "weaviateApiKey": {
-      "type": "string",
-      "format": "password",
-      "title": "Weaviate API Key"
-    },
-    "weaviateCollection": {
-      "type": "string",
-      "title": "Weaviate Collection Name"
-    },
-    "postgresHost": {
-      "type": "string",
-      "title": "PostgreSQL Host"
-    },
-    "postgresPort": {
-      "type": "integer",
-      "title": "PostgreSQL Port",
-      "default": 5432
-    },
-    "postgresUser": {
-      "type": "string",
-      "title": "PostgreSQL User"
-    },
-    "postgresPassword": {
-      "type": "string",
-      "format": "password",
-      "title": "PostgreSQL Password"
-    },
-    "postgresDb": {
-      "type": "string",
-      "title": "PostgreSQL Database"
-    },
-    "postgresTable": {
-      "type": "string",
-      "title": "PostgreSQL Table Name"
-    },
-    "chromaHost": {
-      "type": "string",
-      "title": "Chroma Host"
-    },
-    "chromaPort": {
-      "type": "integer",
-      "title": "Chroma Port",
-      "default": 8000
-    },
-    "chromaCollection": {
-      "type": "string",
-      "title": "Chroma Collection Name"
-    },
-    "embeddingProvider": {
-      "type": "string",
-      "title": "Embedding Provider",
-      "enum": ["openai", "azure"]
-    },
-    "embeddingModel": {
-      "type": "string",
-      "title": "Embedding Model"
-    },
-    "embeddingApiKey": {
-      "type": "string",
-      "format": "password",
-      "title": "Embedding API Key"
-    },
-    "azureBaseUrl": {
-      "type": "string",
-      "title": "Azure Base URL"
-    },
-    "azureApiVersion": {
-      "type": "string",
-      "title": "Azure API Version"
-    },
-    "chunkingStrategy": {
-      "type": "string",
-      "enum": ["recursive", "sentence", "character"],
-      "default": "recursive",
-      "title": "Chunking Strategy"
-    },
-    "maxSegmentSize": {
-      "type": "integer",
-      "default": 500,
-      "minimum": 1,
-      "title": "Max Segment Size"
-    },
-    "maxOverlapSize": {
-      "type": "integer",
-      "default": 0,
-      "minimum": 0,
-      "title": "Max Overlap Size"
+    "wso2": {
+      "type": "object",
+      "properties": {
+        "rag_ingestion": {
+          "type": "object",
+          "title": "RAG Configuration",
+          "properties": {
+            "datasource": {
+              "type": "string",
+              "title": "Data Source",
+              "enum": ["gdrive", "s3"]
+            },
+            "gdriveApiKey": {
+              "type": "string",
+              "format": "password",
+              "title": "Google Drive API Key"
+            },
+            "gdriveFolderId": {
+              "type": "string",
+              "title": "Google Drive Folder ID"
+            },
+            "s3AccessKeyId": {
+              "type": "string",
+              "format": "password",
+              "title": "S3 Access Key ID"
+            },
+            "s3SecretKey": {
+              "type": "string",
+              "format": "password",
+              "title": "S3 Secret Access Key"
+            },
+            "s3BucketName": {
+              "type": "string",
+              "title": "S3 Bucket Name"
+            },
+            "vectorDb": {
+              "type": "string",
+              "title": "Vector Database",
+              "enum": ["pinecone", "weaviate", "postgresql", "chroma"]
+            },
+            "pineconeApiKey": {
+              "type": "string",
+              "format": "password",
+              "title": "Pinecone API Key"
+            },
+            "pineconeIndex": {
+              "type": "string",
+              "title": "Pinecone Index Name"
+            },
+            "weaviateUrl": {
+              "type": "string",
+              "title": "Weaviate Cluster URL"
+            },
+            "weaviateApiKey": {
+              "type": "string",
+              "format": "password",
+              "title": "Weaviate API Key"
+            },
+            "weaviateCollection": {
+              "type": "string",
+              "title": "Weaviate Collection Name"
+            },
+            "postgresHost": {
+              "type": "string",
+              "title": "PostgreSQL Host"
+            },
+            "postgresPort": {
+              "type": "integer",
+              "title": "PostgreSQL Port",
+              "default": 5432
+            },
+            "postgresUser": {
+              "type": "string",
+              "title": "PostgreSQL User"
+            },
+            "postgresPassword": {
+              "type": "string",
+              "format": "password",
+              "title": "PostgreSQL Password"
+            },
+            "postgresDb": {
+              "type": "string",
+              "title": "PostgreSQL Database"
+            },
+            "postgresTable": {
+              "type": "string",
+              "title": "PostgreSQL Table Name"
+            },
+            "chromaHost": {
+              "type": "string",
+              "title": "Chroma Host"
+            },
+            "chromaPort": {
+              "type": "integer",
+              "title": "Chroma Port",
+              "default": 8000
+            },
+            "chromaCollection": {
+              "type": "string",
+              "title": "Chroma Collection Name"
+            },
+            "embeddingProvider": {
+              "type": "string",
+              "title": "Embedding Provider",
+              "enum": ["openai", "azure"]
+            },
+            "embeddingModel": {
+              "type": "string",
+              "title": "Embedding Model"
+            },
+            "embeddingApiKey": {
+              "type": "string",
+              "format": "password",
+              "title": "Embedding API Key"
+            },
+            "azureBaseUrl": {
+              "type": "string",
+              "title": "Azure Base URL"
+            },
+            "azureApiVersion": {
+              "type": "string",
+              "title": "Azure API Version"
+            },
+            "chunkingStrategy": {
+              "type": "string",
+              "enum": ["recursive", "sentence", "character"],
+              "default": "recursive",
+              "title": "Chunking Strategy"
+            },
+            "maxSegmentSize": {
+              "type": "integer",
+              "default": 500,
+              "minimum": 1,
+              "title": "Max Segment Size"
+            },
+            "maxOverlapSize": {
+              "type": "integer",
+              "default": 0,
+              "minimum": 0,
+              "title": "Max Overlap Size"
+            }
+          },
+          "required": ["datasource", "vectorDb", "embeddingProvider", "embeddingModel", "embeddingApiKey"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
     }
-  }
+  },
+  "additionalProperties": false
 }
