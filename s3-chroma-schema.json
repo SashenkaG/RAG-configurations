@@ -95,11 +95,23 @@
                 "azureApiVersion": {
                   "type": "string",
                   "title": "Azure API Version",
+                  "default": "2024-06-01",
                   "description": "Required if using Azure OpenAI. Example: 2024-06-01"
                 }
               },
-              "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey", "azureBaseUrl", "azureApiVersion"],
-              "additionalProperties": false
+              "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey"],
+              "additionalProperties": false,
+              "if": {
+                "properties": {
+                  "embeddingProvider": {
+                    "const": "azure-openai"
+                  }
+                },
+                "required": ["embeddingProvider"]
+              },
+              "then": {
+                "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey", "azureBaseUrl", "azureApiVersion"]
+              }
             },
             "chunking": {
               "type": "object",
@@ -113,11 +125,13 @@
                 "maxSegmentSize": {
                   "type": "integer",
                   "minimum": 1,
+                  "default": 1000,
                   "title": "Max Segment Size (characters)"
                 },
                 "maxOverlapSize": {
                   "type": "integer",
                   "minimum": 0,
+                  "default": 200,
                   "title": "Max Overlap Size (characters)"
                 }
               },
