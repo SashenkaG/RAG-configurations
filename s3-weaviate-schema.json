@@ -9,76 +9,124 @@
           "type": "object",
           "title": "Amazon S3 to Weaviate Configuration",
           "properties": {
-            "s3AccessKeyId": {
-              "type": "string",
-              "format": "password",
-              "title": "S3 Access Key ID"
+            "datasource": {
+              "type": "object",
+              "title": "Data Source Configuration",
+              "properties": {
+                "s3AccessKeyId": {
+                  "type": "string",
+                  "format": "password",
+                  "title": "S3 Access Key ID"
+                },
+                "s3SecretKey": {
+                  "type": "string",
+                  "format": "password",
+                  "title": "S3 Secret Access Key"
+                },
+                "s3BucketName": {
+                  "type": "string",
+                  "title": "S3 Bucket Name"
+                }
+              },
+              "required": ["s3AccessKeyId", "s3SecretKey", "s3BucketName"],
+              "additionalProperties": false
             },
-            "s3SecretKey": {
-              "type": "string",
-              "format": "password",
-              "title": "S3 Secret Access Key"
+            "vectordb": {
+              "type": "object",
+              "title": "Vector Database Configuration",
+              "properties": {
+                "weaviateUrl": {
+                  "type": "string",
+                  "title": "Weaviate Cluster URL"
+                },
+                "weaviateApiKey": {
+                  "type": "string",
+                  "format": "password",
+                  "title": "Weaviate API Key"
+                },
+                "weaviateCollection": {
+                  "type": "string",
+                  "title": "Weaviate Collection Name"
+                }
+              },
+              "required": ["weaviateUrl", "weaviateApiKey", "weaviateCollection"],
+              "additionalProperties": false
             },
-            "s3BucketName": {
-              "type": "string",
-              "title": "S3 Bucket Name"
+            "embedding": {
+              "type": "object",
+              "title": "Embedding Configuration",
+              "properties": {
+                "embeddingProvider": {
+                  "type": "string",
+                  "title": "Embedding Provider",
+                  "enum": ["openai", "azure-openai", "mistral"]
+                },
+                "embeddingModel": {
+                  "type": "string",
+                  "title": "Embedding Model",
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "title": "OpenAI Models",
+                      "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+                    },
+                    {
+                      "type": "string",
+                      "title": "Azure OpenAI Models",
+                      "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+                    },
+                    {
+                      "type": "string",
+                      "title": "Mistral Models",
+                      "enum": ["mistral-embed"]
+                    }
+                  ]
+                },
+                "embeddingApiKey": {
+                  "type": "string",
+                  "format": "password",
+                  "title": "Embedding API Key",
+                  "description": "API key for OpenAI, Azure OpenAI, or Mistral (depending on provider selected)"
+                },
+                "azureBaseUrl": {
+                  "type": "string",
+                  "title": "Azure Base URL",
+                  "description": "Required if using Azure OpenAI. Format: https://resource-name.openai.azure.com/openai"
+                },
+                "azureApiVersion": {
+                  "type": "string",
+                  "title": "Azure API Version",
+                  "description": "Required if using Azure OpenAI. Example: 2024-06-01"
+                }
+              },
+              "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey", "azureBaseUrl", "azureApiVersion"],
+              "additionalProperties": false
             },
-            "weaviateUrl": {
-              "type": "string",
-              "title": "Weaviate Cluster URL"
-            },
-            "weaviateApiKey": {
-              "type": "string",
-              "format": "password",
-              "title": "Weaviate API Key"
-            },
-            "weaviateCollection": {
-              "type": "string",
-              "title": "Weaviate Collection Name"
-            },
-            "embeddingProvider": {
-              "type": "string",
-              "title": "Embedding Provider",
-              "enum": ["openai", "azure"],
-              "default": "openai"
-            },
-            "embeddingModel": {
-              "type": "string",
-              "title": "Embedding Model"
-            },
-            "embeddingApiKey": {
-              "type": "string",
-              "format": "password",
-              "title": "Embedding API Key"
-            },
-            "azureBaseUrl": {
-              "type": "string",
-              "title": "Azure Base URL"
-            },
-            "azureApiVersion": {
-              "type": "string",
-              "title": "Azure API Version"
-            },
-            "chunkingStrategy": {
-              "type": "string",
-              "enum": ["recursive", "sentence", "character"],
-              "default": "recursive",
-              "title": "Chunking Strategy"
-            },
-            "maxSegmentSize": {
-              "type": "integer",
-              "default": 500,
-              "minimum": 1,
-              "title": "Max Segment Size"
-            },
-            "maxOverlapSize": {
-              "type": "integer",
-              "default": 0,
-              "minimum": 0,
-              "title": "Max Overlap Size"
+            "chunking": {
+              "type": "object",
+              "title": "Document Chunking Configuration",
+              "properties": {
+                "chunkingStrategy": {
+                  "type": "string",
+                  "enum": ["recursive", "sentence", "character"],
+                  "title": "Chunking Strategy"
+                },
+                "maxSegmentSize": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "title": "Max Segment Size (characters)"
+                },
+                "maxOverlapSize": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "title": "Max Overlap Size (characters)"
+                }
+              },
+              "required": ["chunkingStrategy", "maxSegmentSize", "maxOverlapSize"],
+              "additionalProperties": false
             }
           },
-          "required": ["s3AccessKeyId", "s3SecretKey", "s3BucketName", "weaviateUrl", "weaviateApiKey", "weaviateCollection", "embeddingProvider", "embeddingModel", "embeddingApiKey"],
+          "required": ["datasource", "vectordb", "embedding", "chunking"],
           "additionalProperties": false
         }
       },
