@@ -56,6 +56,7 @@
                   "properties": {
                     "embeddingProvider": {
                       "const": "openai",
+                      "type": "string",
                       "title": "Embedding Provider"
                     },
                     "embeddingModel": {
@@ -87,6 +88,7 @@
                   "properties": {
                     "embeddingProvider": {
                       "const": "azure-openai",
+                      "type": "string",
                       "title": "Embedding Provider"
                     },
                     "embeddingModel": {
@@ -121,6 +123,7 @@
                   "properties": {
                     "embeddingProvider": {
                       "const": "mistral",
+                      "type": "string",
                       "title": "Embedding Provider"
                     },
                     "embeddingModel": {
@@ -146,7 +149,10 @@
                   "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey"],
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "discriminator": {
+                "propertyName": "embeddingProvider"
+              }
             },
             "chunking": {
               "type": "object",
