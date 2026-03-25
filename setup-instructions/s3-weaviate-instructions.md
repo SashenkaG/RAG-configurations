@@ -1,10 +1,6 @@
-
-# Setup Instructions: Amazon S3 + Weaviate
-
 ## What it does
 This RAG ingestion integration automatically ingests files from Amazon S3 and generates embeddings, storing them in your Weaviate vector database. These embeddings enable semantic search and retrieval for your RAG applications.
 
----
 
 <details>
 <summary><strong>Data Source Setup</strong></summary>
@@ -24,7 +20,6 @@ This RAG ingestion integration automatically ingests files from Amazon S3 and ge
 
 </details>
 
----
 
 <details>
 <summary><strong>Vector Database Setup</strong></summary>
@@ -41,7 +36,6 @@ This RAG ingestion integration automatically ingests files from Amazon S3 and ge
 
 </details>
 
----
 
 <details>
 <summary><strong>Embedding Model Setup</strong></summary>

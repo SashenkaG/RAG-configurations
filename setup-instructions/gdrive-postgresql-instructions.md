@@ -1,10 +1,5 @@
-
-# Setup Instructions: Google Drive + PostgreSQL
-
 ## What it does
 This RAG ingestion integration automatically ingests files from Google Drive and generates embeddings, storing them in your PostgreSQL vector database. These embeddings enable semantic search and retrieval for your RAG applications.
-
----
 
 <details>
 <summary><strong>Data Source Setup</strong></summary>
@@ -23,7 +18,6 @@ This RAG ingestion integration automatically ingests files from Google Drive and
 
 </details>
 
----
 
 <details>
 <summary><strong>Vector Database Setup</strong></summary>
@@ -39,8 +33,6 @@ This RAG ingestion integration automatically ingests files from Google Drive and
 	- Specify the table name for embeddings storage
 
 </details>
-
----
 
 <details>
 <summary><strong>Embedding Model Setup</strong></summary>
