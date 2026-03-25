@@ -1,4 +1,3 @@
-flowchart TB
 DataSource["AWS S3"]
 Chunking["Document Chunking"]
 Embedding["Embedding Generation"]

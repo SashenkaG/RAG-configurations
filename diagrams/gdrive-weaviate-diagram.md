@@ -1,4 +1,3 @@
-flowchart TB
 DataSource["Google Drive"]
 Chunking["Document Chunking"]
 Embedding["Embedding Generation"]
