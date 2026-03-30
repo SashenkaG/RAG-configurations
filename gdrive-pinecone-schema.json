@@ -9,126 +9,89 @@
           "type": "object",
           "title": "Google Drive to Pinecone Configuration",
           "properties": {
-            "datasource": {
-              "type": "object",
-              "title": "Data Source Configuration",
-              "properties": {
-                "gdriveApiKey": {
-                  "type": "string",
-                  "format": "password",
-                  "title": "Google Drive API Key"
-                },
-                "gdriveFolderId": {
-                  "type": "string",
-                  "title": "Google Drive Folder ID"
-                }
-              },
-              "required": ["gdriveApiKey", "gdriveFolderId"],
-              "additionalProperties": false
+            "gdriveApiKey": {
+              "type": "string",
+              "format": "password",
+              "title": "Google Drive API Key"
             },
-            "vectordb": {
-              "type": "object",
-              "title": "Vector Database Configuration",
-              "properties": {
-                "pineconeApiKey": {
-                  "type": "string",
-                  "format": "password",
-                  "title": "Pinecone API Key"
-                },
-                "pineconeIndex": {
-                  "type": "string",
-                  "title": "Pinecone Index Name"
-                }
-              },
-              "required": ["pineconeApiKey", "pineconeIndex"],
-              "additionalProperties": false
+            "gdriveFolderId": {
+              "type": "string",
+              "title": "Google Drive Folder ID"
             },
-            "embedding": {
-              "type": "object",
-              "title": "Embedding Configuration",
-              "properties": {
-                "embeddingProvider": {
-                  "type": "string",
-                  "title": "Embedding Provider",
-                  "enum": ["openai", "azure-openai", "mistral"]
+            "pineconeApiKey": {
+              "type": "string",
+              "format": "password",
+              "title": "Pinecone API Key"
+            },
+            "pineconeIndex": {
+              "type": "string",
+              "title": "Pinecone Index Name"
+            },
+            "embeddingProvider": {
+              "type": "string",
+              "title": "Embedding Provider",
+              "enum": ["openai", "azure-openai", "mistral"]
+            },
+            "embeddingModel": {
+              "type": "string",
+              "title": "Embedding Model"
+            },
+            "embeddingApiKey": {
+              "type": "string",
+              "format": "password",
+              "title": "Embedding API Key",
+              "description": "API key for OpenAI, Azure OpenAI, or Mistral (depending on provider selected)"
+            },
+            "azureBaseUrl": {
+              "type": "string",
+              "title": "Azure Base URL",
+              "description": "Required if using Azure OpenAI. Format: https://resource-name.openai.azure.com/openai"
+            },
+            "azureApiVersion": {
+              "type": "string",
+              "title": "Azure API Version",
+              "default": "2024-06-01",
+              "description": "Required if using Azure OpenAI. Example: 2024-06-01"
+            },
+            "chunkingStrategy": {
+              "type": "string",
+              "enum": ["recursive", "sentence", "character"],
+              "title": "Chunking Strategy"
+            },
+            "maxSegmentSize": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1000,
+              "title": "Max Segment Size (characters)"
+            },
+            "maxOverlapSize": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 200,
+              "title": "Max Overlap Size (characters)"
+            }
+          },
+          "required": ["gdriveApiKey", "gdriveFolderId", "pineconeApiKey", "pineconeIndex", "embeddingProvider", "embeddingModel", "embeddingApiKey", "chunkingStrategy", "maxSegmentSize", "maxOverlapSize"],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "embeddingProvider": {
+                    "const": "openai"
+                  }
                 },
-                "embeddingModel": {
-                  "type": "string",
-                  "title": "Embedding Model"
-                },
-                "embeddingApiKey": {
-                  "type": "string",
-                  "format": "password",
-                  "title": "Embedding API Key",
-                  "description": "API key for OpenAI, Azure OpenAI, or Mistral (depending on provider selected)"
-                },
-                "azureBaseUrl": {
-                  "type": "string",
-                  "title": "Azure Base URL",
-                  "description": "Required if using Azure OpenAI. Format: https://resource-name.openai.azure.com/openai"
-                },
-                "azureApiVersion": {
-                  "type": "string",
-                  "title": "Azure API Version",
-                  "default": "2024-06-01",
-                  "description": "Required if using Azure OpenAI. Example: 2024-06-01"
-                }
+                "required": ["embeddingProvider"]
               },
-              "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey"],
-              "additionalProperties": false,
-              "allOf": [
-                {
-                  "if": {
-                    "properties": {
-                      "embeddingProvider": {
-                        "const": "openai"
-                      }
-                    },
-                    "required": ["embeddingProvider"]
-                  },
-                  "then": {
-                    "properties": {
-                      "embeddingModel": {
-                        "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
-                      }
-                    }
-                  }
-                },
-                {
-                  "if": {
-                    "properties": {
-                      "embeddingProvider": {
-                        "const": "azure-openai"
-                      }
-                    },
-                    "required": ["embeddingProvider"]
-                  },
-                  "then": {
-                    "properties": {
-                      "embeddingModel": {
-                        "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
-                      }
-                    }
-                  }
-                },
-                {
-                  "if": {
-                    "properties": {
-                      "embeddingProvider": {
-                        "const": "mistral"
-                      }
-                    },
-                    "required": ["embeddingProvider"]
-                  },
-                  "then": {
-                    "properties": {
-                      "embeddingModel": {
-                        "enum": ["mistral-embed"]
-                      }
-                    }
+              "then": {
+                "properties": {
+                  "embeddingModel": {
+                    "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
                   }
                 }
-              ],
+              }
+            },
+            {
               "if": {
                 "properties": {
                   "embeddingProvider": {
@@ -138,37 +101,32 @@
                 "required": ["embeddingProvider"]
               },
               "then": {
+                "properties": {
+                  "embeddingModel": {
+                    "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+                  }
+                },
                 "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey", "azureBaseUrl", "azureApiVersion"]
               }
             },
-            "chunking": {
-              "type": "object",
-              "title": "Document Chunking Configuration",
-              "properties": {
-                "chunkingStrategy": {
-                  "type": "string",
-                  "enum": ["recursive", "sentence", "character"],
-                  "title": "Chunking Strategy"
+            {
+              "if": {
+                "properties": {
+                  "embeddingProvider": {
+                    "const": "mistral"
+                  }
                 },
-                "maxSegmentSize": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "default": 1000,
-                  "title": "Max Segment Size (characters)"
-                },
-                "maxOverlapSize": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "default": 200,
-                  "title": "Max Overlap Size (characters)"
-                }
+                "required": ["embeddingProvider"]
               },
-              "required": ["chunkingStrategy", "maxSegmentSize", "maxOverlapSize"],
-              "additionalProperties": false
+              "then": {
+                "properties": {
+                  "embeddingModel": {
+                    "enum": ["mistral-embed"]
+                  }
+                }
+              }
             }
-          },
-          "required": ["datasource", "vectordb", "embedding", "chunking"],
-          "additionalProperties": false
+          ]
         }
       },
       "additionalProperties": false
