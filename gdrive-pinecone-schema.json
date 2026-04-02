@@ -52,7 +52,7 @@
     },
     "azureBaseUrl": {
       "type": "string",
-      "title": "Azure Base URL",
+      "title": "Azure Base URL (If you are using Azure OpenAI only)",
       "description": "Required if using Azure OpenAI. Format: https://resource-name.openai.azure.com/openai"
     },
     "azureApiVersion": {
