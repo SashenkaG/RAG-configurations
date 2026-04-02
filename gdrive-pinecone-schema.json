@@ -12,6 +12,20 @@
       "type": "string",
       "title": "Google Drive Folder ID"
     },
+    "clientId": {
+      "type": "string",
+      "title": "Client ID"
+    },
+    "clientSecret": {
+      "type": "string",
+      "format": "password",
+      "title": "Client Secret"
+    },
+    "refreshToken": {
+      "type": "string",
+      "format": "password",
+      "title": "Refresh Token"
+    },
     "pineconeApiKey": {
       "type": "string",
       "format": "password",
