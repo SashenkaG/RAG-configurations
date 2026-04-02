@@ -23,21 +23,10 @@ This RAG ingestion integration automatically ingests files from Google Drive and
 
 Use this method if the API Key method doesn't work for your use case.
 
-- Create OAuth 2.0 Credentials:
-	- Go to [Google Cloud Console](https://console.cloud.google.com/)
-	- Navigate to "Credentials" → "Create Credentials" → "OAuth 2.0 Client ID"
-	- Select "Desktop application" and click "Create"
-	- Download the credentials JSON file
-	- Extract `client_id` and `client_secret`
-
-- Get Refresh Token using curl:
-	- Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your actual values
-	- Run the first curl command to get the authorization code:
-	  `curl -X POST https://oauth2.googleapis.com/token -d "client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&scope=https://www.googleapis.com/auth/drive&redirect_uri=http://localhost&response_type=code&access_type=offline"`
-	- Follow the authorization link in the response and copy the authorization code
-	- Run the second curl command with your authorization code:
-	  `curl -X POST https://oauth2.googleapis.com/token -d "client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&code=AUTHORIZATION_CODE&grant_type=authorization_code&redirect_uri=http://localhost"`
-	- Copy the `refresh_token` from the response and store it securely
+- Refer to [Google's OAuth 2.0 Setup Guide](https://developers.google.com/identity/protocols/oauth2/web-server) to:
+	- Create OAuth 2.0 credentials
+	- Obtain your `client_id` and `client_secret`
+	- Get your `refresh_token`
 
 </details>
 
