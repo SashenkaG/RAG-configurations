@@ -30,23 +30,12 @@ Use this method if the API Key method doesn't work for your use case.
 	- Extract `client_id` and `client_secret`
 
 - Get Refresh Token using curl:
-	```bash
-	Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your actual values
-	curl -X POST https://oauth2.googleapis.com/token \
-	  -d "client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&scope=https://www.googleapis.com/auth/drive&redirect_uri=http://localhost&response_type=code&access_type=offline"
-	```
+	Replace YOUR_CLIENT_ID and YOUR_CLIENT_SECRET with your actual values:
+	curl -X POST https://oauth2.googleapis.com/token -d "client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&scope=https://www.googleapis.com/auth/drive&redirect_uri=http://localhost&response_type=code&access_type=offline"
 	- Follow the authorization link and copy the authorization code
 	- Exchange it for a refresh token:
-	```bash
-	curl -X POST https://oauth2.googleapis.com/token \
-	  -d "client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&code=AUTHORIZATION_CODE&grant_type=authorization_code&redirect_uri=http://localhost"
-	```
+	curl -X POST https://oauth2.googleapis.com/token -d "client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&code=AUTHORIZATION_CODE&grant_type=authorization_code&redirect_uri=http://localhost"
 	- Copy the `refresh_token` from the response
-
-- Get Folder ID:
-	- Open your Google Drive folder in a browser
-	- Copy the folder ID from the URL (after /folders/)
-	- Example: https://drive.google.com/drive/folders/ABC123XYZ
 
 </details>
 
