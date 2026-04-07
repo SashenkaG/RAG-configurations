@@ -3,119 +3,140 @@
   "type": "object",
   "title": "Amazon S3 to PostgreSQL Configuration",
   "properties": {
-    "s3AccessKeyId": {
-      "type": "string",
-      "format": "password",
-      "title": "S3 Access Key ID"
+    "amazons3config": {
+      "type": "object",
+      "title": "Amazon S3 Configuration",
+      "properties": {
+        "s3AccessKeyId": {
+          "type": "string",
+          "format": "password",
+          "title": "S3 Access Key ID"
+        },
+        "s3SecretKey": {
+          "type": "string",
+          "format": "password",
+          "title": "S3 Secret Access Key"
+        },
+        "s3BucketName": {
+          "type": "string",
+          "title": "S3 Bucket Name"
+        }
+      },
+      "required": ["s3AccessKeyId", "s3SecretKey", "s3BucketName"]
     },
-    "s3SecretKey": {
-      "type": "string",
-      "format": "password",
-      "title": "S3 Secret Access Key"
+    "postgresqlconfig": {
+      "type": "object",
+      "title": "PostgreSQL Configuration",
+      "properties": {
+        "postgresHost": {
+          "type": "string",
+          "title": "PostgreSQL Host"
+        },
+        "postgresPort": {
+          "type": "integer",
+          "title": "PostgreSQL Port"
+        },
+        "postgresUser": {
+          "type": "string",
+          "title": "PostgreSQL User"
+        },
+        "postgresPassword": {
+          "type": "string",
+          "format": "password",
+          "title": "PostgreSQL Password"
+        },
+        "postgresDb": {
+          "type": "string",
+          "title": "PostgreSQL Database"
+        },
+        "postgresTable": {
+          "type": "string",
+          "title": "PostgreSQL Table Name"
+        }
+      },
+      "required": ["postgresHost", "postgresPort", "postgresUser", "postgresPassword", "postgresDb", "postgresTable"]
     },
-    "s3BucketName": {
-      "type": "string",
-      "title": "S3 Bucket Name"
+    "embeddingconfig": {
+      "type": "object",
+      "title": "Embedding Configuration",
+      "properties": {
+        "embeddingProvider": {
+          "type": "string",
+          "title": "Embedding Provider",
+          "enum": ["openai", "azure-openai", "mistral"]
+        },
+        "embeddingModel": {
+          "type": "string",
+          "title": "Embedding Model"
+        },
+        "embeddingApiKey": {
+          "type": "string",
+          "format": "password",
+          "title": "Embedding API Key",
+          "description": "API key for OpenAI, Azure OpenAI, or Mistral (depending on provider selected)"
+        },
+        "azureBaseUrl": {
+          "type": "string",
+          "title": "Azure Base URL",
+          "description": "Required if using Azure OpenAI. Format: https://resource-name.openai.azure.com/openai"
+        },
+        "azureApiVersion": {
+          "type": "string",
+          "title": "Azure API Version",
+          "default": "2024-06-01",
+          "description": "Required if using Azure OpenAI. Example: 2024-06-01"
+        }
+      },
+      "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey"]
     },
-    "clientId": {
-      "type": "string",
-      "title": "Client ID"
-    },
-    "clientSecret": {
-      "type": "string",
-      "format": "password",
-      "title": "Client Secret"
-    },
-    "refreshToken": {
-      "type": "string",
-      "format": "password",
-      "title": "Refresh Token"
-    },
-    "postgresHost": {
-      "type": "string",
-      "title": "PostgreSQL Host"
-    },
-    "postgresPort": {
-      "type": "integer",
-      "title": "PostgreSQL Port"
-    },
-    "postgresUser": {
-      "type": "string",
-      "title": "PostgreSQL User"
-    },
-    "postgresPassword": {
-      "type": "string",
-      "format": "password",
-      "title": "PostgreSQL Password"
-    },
-    "postgresDb": {
-      "type": "string",
-      "title": "PostgreSQL Database"
-    },
-    "postgresTable": {
-      "type": "string",
-      "title": "PostgreSQL Table Name"
-    },
-    "embeddingProvider": {
-      "type": "string",
-      "title": "Embedding Provider",
-      "enum": ["openai", "azure-openai", "mistral"]
-    },
-    "embeddingModel": {
-      "type": "string",
-      "title": "Embedding Model"
-    },
-    "embeddingApiKey": {
-      "type": "string",
-      "format": "password",
-      "title": "Embedding API Key",
-      "description": "API key for OpenAI, Azure OpenAI, or Mistral (depending on provider selected)"
-    },
-    "azureBaseUrl": {
-      "type": "string",
-      "title": "Azure Base URL",
-      "description": "Required if using Azure OpenAI. Format: https://resource-name.openai.azure.com/openai"
-    },
-    "azureApiVersion": {
-      "type": "string",
-      "title": "Azure API Version",
-      "default": "2024-06-01",
-      "description": "Required if using Azure OpenAI. Example: 2024-06-01"
-    },
-    "chunkingStrategy": {
-      "type": "string",
-      "enum": ["recursive", "sentence", "character"],
-      "title": "Chunking Strategy"
-    },
-    "maxSegmentSize": {
-      "type": "integer",
-      "minimum": 1,
-      "default": 1000,
-      "title": "Max Segment Size (characters)"
-    },
-    "maxOverlapSize": {
-      "type": "integer",
-      "minimum": 0,
-      "default": 200,
-      "title": "Max Overlap Size (characters)"
+    "chunkingconfig": {
+      "type": "object",
+      "title": "Chunking Configuration",
+      "properties": {
+        "chunkingStrategy": {
+          "type": "string",
+          "enum": ["recursive", "sentence", "character"],
+          "title": "Chunking Strategy"
+        },
+        "maxSegmentSize": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1000,
+          "title": "Max Segment Size (characters)"
+        },
+        "maxOverlapSize": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 200,
+          "title": "Max Overlap Size (characters)"
+        }
+      },
+      "required": ["chunkingStrategy", "maxSegmentSize", "maxOverlapSize"]
     }
   },
-  "required": ["s3AccessKeyId", "s3SecretKey", "s3BucketName", "postgresHost", "postgresPort", "postgresUser", "postgresPassword", "postgresDb", "postgresTable", "embeddingProvider", "embeddingModel", "embeddingApiKey", "chunkingStrategy", "maxSegmentSize", "maxOverlapSize"],
+  "required": ["amazons3config", "postgresqlconfig", "embeddingconfig", "chunkingconfig"],
   "additionalProperties": false,
   "allOf": [
     {
       "if": {
         "properties": {
-          "embeddingProvider": {
-            "const": "openai"
+          "embeddingconfig": {
+            "properties": {
+              "embeddingProvider": {
+                "const": "openai"
+              }
+            }
           }
-        },
-        "required": ["embeddingProvider"]
+        }
       },
       "then": {
         "properties": {
-          "embeddingModel": {
-            "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+          "embeddingconfig": {
+            "properties": {
+              "embeddingModel": {
+                "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+              }
+            }
           }
         }
       }
@@ -123,34 +144,48 @@
     {
       "if": {
         "properties": {
-          "embeddingProvider": {
-            "const": "azure-openai"
+          "embeddingconfig": {
+            "properties": {
+              "embeddingProvider": {
+                "const": "azure-openai"
+              }
+            }
           }
-        },
-        "required": ["embeddingProvider"]
+        }
       },
       "then": {
         "properties": {
-          "embeddingModel": {
-            "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+          "embeddingconfig": {
+            "properties": {
+              "embeddingModel": {
+                "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+              }
+            },
+            "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey", "azureBaseUrl", "azureApiVersion"]
           }
-        },
-        "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey", "azureBaseUrl", "azureApiVersion"]
+        }
       }
     },
     {
       "if": {
         "properties": {
-          "embeddingProvider": {
-            "const": "mistral"
+          "embeddingconfig": {
+            "properties": {
+              "embeddingProvider": {
+                "const": "mistral"
+              }
+            }
           }
-        },
-        "required": ["embeddingProvider"]
+        }
       },
       "then": {
         "properties": {
-          "embeddingModel": {
-            "enum": ["mistral-embed"]
+          "embeddingconfig": {
+            "properties": {
+              "embeddingModel": {
+                "enum": ["mistral-embed"]
+              }
+            }
           }
         }
       }
