@@ -31,7 +31,7 @@ Use this method if the API Key method doesn't work for your use case.
 </details>
 
 <details>
-<summary><Vector Database Setup></summary>
+<summary>Vector Database Setup</summary>
 
 ### Pinecone
 
