@@ -1,9 +1,9 @@
 ## What it does
-This RAG ingestion integration automatically ingests files from Amazon S3 and generates embeddings, storing them in your Chroma vector database. These embeddings enable semantic search and retrieval for your RAG applications.
+- This RAG ingestion integration automatically ingests files from Amazon S3 and generates embeddings, storing them in your Chroma vector database. These embeddings enable semantic search and retrieval for your RAG applications.
 
 <details>
 
-<summary><strong>Data Source Setup</strong></summary>
+<summary>Data Source Setup</summary>
 
 ### Amazon S3
 
@@ -21,7 +21,7 @@ This RAG ingestion integration automatically ingests files from Amazon S3 and ge
 </details>
 
 <details>
-<summary><strong>Vector Database Setup</strong></summary>
+<summary>Vector Database Setup</summary>
 
 ### Chroma
 
@@ -35,7 +35,7 @@ This RAG ingestion integration automatically ingests files from Amazon S3 and ge
 
 
 <details>
-<summary><strong>Embedding Model Setup</strong></summary>
+<summary>Embedding Model Setup</summary>
 
 ### OpenAI
 

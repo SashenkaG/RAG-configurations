@@ -1,9 +1,9 @@
 ## What it does
-This RAG ingestion integration automatically ingests files from Google Drive and generates embeddings, storing them in your Weaviate vector database. These embeddings enable semantic search and retrieval for your RAG applications.
+- This RAG ingestion integration automatically ingests files from Google Drive and generates embeddings, storing them in your Weaviate vector database. These embeddings enable semantic search and retrieval for your RAG applications.
 
 <details>
 
-<summary><strong>Data Source Setup</strong></summary>
+<summary>Data Source Setup</summary>
 
 ### Google Drive
 
@@ -32,7 +32,7 @@ Use this method if the API Key method doesn't work for your use case.
 
 
 <details>
-<summary><strong>Vector Database Setup</strong></summary>
+<summary>Vector Database Setup</summary>
 
 ### Weaviate
 
@@ -47,7 +47,7 @@ Use this method if the API Key method doesn't work for your use case.
 </details>
 
 <details>
-<summary><strong>Embedding Model Setup</strong></summary>
+<summary>Embedding Model Setup</summary>
 
 ### OpenAI
 

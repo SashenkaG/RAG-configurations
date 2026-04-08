@@ -1,5 +1,5 @@
 ## What it does
-This RAG ingestion integration automatically ingests files from Google Drive and generates embeddings, storing them in your Chroma vector database. These embeddings enable semantic search and retrieval for your RAG applications.
+- This RAG ingestion integration automatically ingests files from Google Drive and generates embeddings, storing them in your Chroma vector database. These embeddings enable semantic search and retrieval for your RAG applications.
 
 <details>
 
