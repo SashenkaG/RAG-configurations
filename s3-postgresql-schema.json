@@ -67,7 +67,8 @@
         },
         "embeddingModel": {
           "type": "string",
-          "title": "Embedding Model"
+          "title": "Embedding Model",
+          "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002", "mistral-embed"]
         },
         "embeddingApiKey": {
           "type": "string",
