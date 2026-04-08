@@ -1,8 +1,8 @@
 ## What it does
 This RAG ingestion integration automatically ingests files from Google Drive and generates embeddings, storing them in your Pinecone vector database. These embeddings enable semantic search and retrieval for your RAG applications.
 
-
 <details>
+
 <summary><strong>Data Source Setup</strong></summary>
 
 ### Google Drive

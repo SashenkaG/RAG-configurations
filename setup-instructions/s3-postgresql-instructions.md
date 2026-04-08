@@ -1,8 +1,8 @@
 ## What it does
 This RAG ingestion integration automatically ingests files from Amazon S3 and generates embeddings, storing them in your PostgreSQL vector database. These embeddings enable semantic search and retrieval for your RAG applications.
 
-
 <details>
+
 <summary><strong>Data Source Setup</strong></summary>
 
 ### Amazon S3
