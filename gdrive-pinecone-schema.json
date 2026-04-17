@@ -7,6 +7,12 @@
       "type": "object",
       "title": "Google Drive Configuration",
       "properties": {
+        "gdriveAuthType": {
+          "type": "string",
+          "title": "Google Drive Auth Type",
+          "enum": ["api_Key", "oauth"],
+          "description": "Select authentication type: API Key or OAuth."
+        },
         "gdriveApiKey": {
           "type": "string",
           "format": "password",
@@ -29,13 +35,6 @@
           "type": "string",
           "format": "password",
           "title": "Refresh Token (OAuth)"
-        }
-        ,
-        "gdriveAuthType": {
-          "type": "string",
-          "title": "Google Drive Auth Type",
-          "enum": ["api_Key", "oauth"],
-          "description": "Select authentication type: API Key or OAuth."
         }
       },
         "required": ["gdriveAuthType", "gdriveFolderId"]
