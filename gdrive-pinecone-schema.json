@@ -23,6 +23,25 @@
         "gdriveFolderId": {
           "type": "string",
           "title": "Google Drive Folder ID"
+        },
+        "gdriveApiKey": {
+          "type": "string",
+          "format": "password",
+          "title": "Google Drive API Key"
+        },
+        "clientId": {
+          "type": "string",
+          "title": "Client ID (OAuth)"
+        },
+        "clientSecret": {
+          "type": "string",
+          "format": "password",
+          "title": "Client Secret (OAuth)"
+        },
+        "refreshToken": {
+          "type": "string",
+          "format": "password",
+          "title": "Refresh Token (OAuth)"
         }
       },
       "required": ["gdriveAuthType", "gdriveFolderId"],
@@ -30,34 +49,11 @@
         "gdriveAuthType": {
           "oneOf": [
             {
-              "properties": {
-                "gdriveAuthType": { "const": "api_Key" },
-                "gdriveApiKey": {
-                  "type": "string",
-                  "format": "password",
-                  "title": "Google Drive API Key"
-                }
-              },
+              "properties": { "gdriveAuthType": { "const": "api_Key" } },
               "required": ["gdriveApiKey"]
             },
             {
-              "properties": {
-                "gdriveAuthType": { "const": "oauth" },
-                "clientId": {
-                  "type": "string",
-                  "title": "Client ID (OAuth)"
-                },
-                "clientSecret": {
-                  "type": "string",
-                  "format": "password",
-                  "title": "Client Secret (OAuth)"
-                },
-                "refreshToken": {
-                  "type": "string",
-                  "format": "password",
-                  "title": "Refresh Token (OAuth)"
-                }
-              },
+              "properties": { "gdriveAuthType": { "const": "oauth" } },
               "required": ["clientId", "clientSecret", "refreshToken"]
             }
           ]
@@ -94,6 +90,27 @@
           "format": "password",
           "title": "Embedding API Key",
           "description": "API key for OpenAI, Azure OpenAI, or Mistral"
+        },
+        "embeddingModel": {
+          "type": "string",
+          "title": "Embedding Model",
+          "enum": [
+            "text-embedding-3-small",
+            "text-embedding-3-large",
+            "text-embedding-ada-002",
+            "mistral-embed"
+          ]
+        },
+        "azureBaseUrl": {
+          "type": "string",
+          "title": "Azure Base URL",
+          "description": "Format: https://resource-name.openai.azure.com/openai"
+        },
+        "azureApiVersion": {
+          "type": "string",
+          "title": "Azure API Version",
+          "default": "2024-06-01",
+          "description": "Example: 2024-06-01"
         }
       },
       "required": ["embeddingProvider", "embeddingApiKey"],
@@ -101,55 +118,15 @@
         "embeddingProvider": {
           "oneOf": [
             {
-              "properties": {
-                "embeddingProvider": { "const": "openai" },
-                "embeddingModel": {
-                  "type": "string",
-                  "title": "Embedding Model",
-                  "enum": [
-                    "text-embedding-3-small",
-                    "text-embedding-3-large",
-                    "text-embedding-ada-002"
-                  ]
-                }
-              },
+              "properties": { "embeddingProvider": { "const": "openai" } },
               "required": ["embeddingModel"]
             },
             {
-              "properties": {
-                "embeddingProvider": { "const": "azure-openai" },
-                "embeddingModel": {
-                  "type": "string",
-                  "title": "Embedding Model",
-                  "enum": [
-                    "text-embedding-3-small",
-                    "text-embedding-3-large",
-                    "text-embedding-ada-002"
-                  ]
-                },
-                "azureBaseUrl": {
-                  "type": "string",
-                  "title": "Azure Base URL",
-                  "description": "Format: https://resource-name.openai.azure.com/openai"
-                },
-                "azureApiVersion": {
-                  "type": "string",
-                  "title": "Azure API Version",
-                  "default": "2024-06-01",
-                  "description": "Example: 2024-06-01"
-                }
-              },
+              "properties": { "embeddingProvider": { "const": "azure-openai" } },
               "required": ["embeddingModel", "azureBaseUrl", "azureApiVersion"]
             },
             {
-              "properties": {
-                "embeddingProvider": { "const": "mistral" },
-                "embeddingModel": {
-                  "type": "string",
-                  "title": "Embedding Model",
-                  "enum": ["mistral-embed"]
-                }
-              },
+              "properties": { "embeddingProvider": { "const": "mistral" } },
               "required": ["embeddingModel"]
             }
           ]
