@@ -26,51 +26,43 @@
         }
       },
       "required": ["gdriveAuthType", "gdriveFolderId"],
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "gdriveAuthType": { "const": "api_Key" }
-            }
-          },
-          "then": {
-            "properties": {
-              "gdriveApiKey": {
-                "type": "string",
-                "format": "password",
-                "title": "Google Drive API Key"
-              }
-            },
-            "required": ["gdriveApiKey"]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "gdriveAuthType": { "const": "oauth" }
-            }
-          },
-          "then": {
-            "properties": {
-              "clientId": {
-                "type": "string",
-                "title": "Client ID (OAuth)"
+      "dependencies": {
+        "gdriveAuthType": {
+          "oneOf": [
+            {
+              "properties": {
+                "gdriveAuthType": { "const": "api_Key" },
+                "gdriveApiKey": {
+                  "type": "string",
+                  "format": "password",
+                  "title": "Google Drive API Key"
+                }
               },
-              "clientSecret": {
-                "type": "string",
-                "format": "password",
-                "title": "Client Secret (OAuth)"
-              },
-              "refreshToken": {
-                "type": "string",
-                "format": "password",
-                "title": "Refresh Token (OAuth)"
-              }
+              "required": ["gdriveApiKey"]
             },
-            "required": ["clientId", "clientSecret", "refreshToken"]
-          }
+            {
+              "properties": {
+                "gdriveAuthType": { "const": "oauth" },
+                "clientId": {
+                  "type": "string",
+                  "title": "Client ID (OAuth)"
+                },
+                "clientSecret": {
+                  "type": "string",
+                  "format": "password",
+                  "title": "Client Secret (OAuth)"
+                },
+                "refreshToken": {
+                  "type": "string",
+                  "format": "password",
+                  "title": "Refresh Token (OAuth)"
+                }
+              },
+              "required": ["clientId", "clientSecret", "refreshToken"]
+            }
+          ]
         }
-      ]
+      }
     },
     "pineconeconfig": {
       "type": "object",
@@ -105,78 +97,64 @@
         }
       },
       "required": ["embeddingProvider", "embeddingApiKey"],
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "embeddingProvider": { "const": "openai" }
-            }
-          },
-          "then": {
-            "properties": {
-              "embeddingModel": {
-                "type": "string",
-                "title": "Embedding Model",
-                "enum": [
-                  "text-embedding-3-small",
-                  "text-embedding-3-large",
-                  "text-embedding-ada-002"
-                ]
-              }
-            },
-            "required": ["embeddingModel"]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "embeddingProvider": { "const": "azure-openai" }
-            }
-          },
-          "then": {
-            "properties": {
-              "embeddingModel": {
-                "type": "string",
-                "title": "Embedding Model",
-                "enum": [
-                  "text-embedding-3-small",
-                  "text-embedding-3-large",
-                  "text-embedding-ada-002"
-                ]
+      "dependencies": {
+        "embeddingProvider": {
+          "oneOf": [
+            {
+              "properties": {
+                "embeddingProvider": { "const": "openai" },
+                "embeddingModel": {
+                  "type": "string",
+                  "title": "Embedding Model",
+                  "enum": [
+                    "text-embedding-3-small",
+                    "text-embedding-3-large",
+                    "text-embedding-ada-002"
+                  ]
+                }
               },
-              "azureBaseUrl": {
-                "type": "string",
-                "title": "Azure Base URL",
-                "description": "Format: https://resource-name.openai.azure.com/openai"
+              "required": ["embeddingModel"]
+            },
+            {
+              "properties": {
+                "embeddingProvider": { "const": "azure-openai" },
+                "embeddingModel": {
+                  "type": "string",
+                  "title": "Embedding Model",
+                  "enum": [
+                    "text-embedding-3-small",
+                    "text-embedding-3-large",
+                    "text-embedding-ada-002"
+                  ]
+                },
+                "azureBaseUrl": {
+                  "type": "string",
+                  "title": "Azure Base URL",
+                  "description": "Format: https://resource-name.openai.azure.com/openai"
+                },
+                "azureApiVersion": {
+                  "type": "string",
+                  "title": "Azure API Version",
+                  "default": "2024-06-01",
+                  "description": "Example: 2024-06-01"
+                }
               },
-              "azureApiVersion": {
-                "type": "string",
-                "title": "Azure API Version",
-                "default": "2024-06-01",
-                "description": "Example: 2024-06-01"
-              }
+              "required": ["embeddingModel", "azureBaseUrl", "azureApiVersion"]
             },
-            "required": ["embeddingModel", "azureBaseUrl", "azureApiVersion"]
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "embeddingProvider": { "const": "mistral" }
+            {
+              "properties": {
+                "embeddingProvider": { "const": "mistral" },
+                "embeddingModel": {
+                  "type": "string",
+                  "title": "Embedding Model",
+                  "enum": ["mistral-embed"]
+                }
+              },
+              "required": ["embeddingModel"]
             }
-          },
-          "then": {
-            "properties": {
-              "embeddingModel": {
-                "type": "string",
-                "title": "Embedding Model",
-                "enum": ["mistral-embed"]
-              }
-            },
-            "required": ["embeddingModel"]
-          }
+          ]
         }
-      ]
+      }
     },
     "chunkingconfig": {
       "type": "object",
