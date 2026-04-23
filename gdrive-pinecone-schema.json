@@ -2,6 +2,52 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
+    "haritha": {
+      "type": "object",
+      "properties": {
+        "kafka_producer": {
+          "type": "object",
+          "properties": {
+            "myConfig": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "another": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "another"
+                  ],
+                  "name": "haritha/kafka_producer:0.1.0:Another"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "myName": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "myName"
+                  ],
+                  "name": "haritha/kafka_producer:0.1.0:Name"
+                }
+              ],
+              "description": ""
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "myConfig"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
     "ballerina": {
       "type": "object",
       "properties": {
