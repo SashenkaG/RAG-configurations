@@ -1,161 +1,160 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "title": "Google Drive to Pinecone Configuration",
-  "required": [
-    "googledriveconfig",
-    "pineconeconfig",
-    "embeddingconfig",
-    "chunkingconfig"
-  ],
-  "additionalProperties": false,
   "properties": {
-    "googledriveconfig": {
+    "ballerina": {
       "type": "object",
-      "title": "Google Drive Configuration",
       "properties": {
-        "gdriveAuthType": {
-          "type": "string",
-          "title": "Google Drive Auth Type",
-          "enum": ["api_key", "oauth"],
-          "description": "Select authentication type: API Key or OAuth."
-        },
-        "gdriveFolderId": {
-          "type": "string",
-          "title": "Google Drive Folder ID"
-        },
-        "gdriveApiKey": {
-          "type": "string",
-          "format": "password",
-          "title": "Google Drive API Key"
-        },
-        "clientId": {
-          "type": "string",
-          "title": "Client ID (OAuth)"
-        },
-        "clientSecret": {
-          "type": "string",
-          "format": "password",
-          "title": "Client Secret (OAuth)"
-        },
-        "refreshToken": {
-          "type": "string",
-          "format": "password",
-          "title": "Refresh Token (OAuth)"
-        }
-      },
-      "required": ["gdriveAuthType", "gdriveFolderId"],
-      "dependencies": {
-        "gdriveAuthType": {
-          "oneOf": [
-            {
-              "properties": { "gdriveAuthType": { "const": "api_key" } },
-              "required": ["gdriveApiKey"]
+        "log": {
+          "type": "object",
+          "properties": {
+            "destinations": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "stderr",
+                          "stdout"
+                        ]
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "type"
+                    ],
+                    "name": "ballerina/log:2.17.0:StandardDestination"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "enum": [
+                          "file"
+                        ]
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "mode": {
+                        "enum": [
+                          "APPEND",
+                          "TRUNCATE"
+                        ]
+                      },
+                      "rotation": {
+                        "type": "object",
+                        "properties": {
+                          "policy": {
+                            "enum": [
+                              "BOTH",
+                              "TIME_BASED",
+                              "SIZE_BASED"
+                            ]
+                          },
+                          "maxFileSize": {
+                            "type": "integer"
+                          },
+                          "maxAge": {
+                            "type": "integer"
+                          },
+                          "maxBackupFiles": {
+                            "type": "integer"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "policy",
+                          "maxFileSize",
+                          "maxAge",
+                          "maxBackupFiles"
+                        ],
+                        "name": "ballerina/log:2.17.0:RotationConfig"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "type",
+                      "path",
+                      "mode"
+                    ],
+                    "name": "ballerina/log:2.17.0:FileOutputDestination"
+                  }
+                ]
+              },
+              "description": ""
             },
-            {
-              "properties": { "gdriveAuthType": { "const": "oauth" } },
-              "required": ["clientId", "clientSecret", "refreshToken"]
+            "modules": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "level": {
+                    "enum": [
+                      "WARN",
+                      "INFO",
+                      "ERROR",
+                      "DEBUG"
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "level"
+                ],
+                "name": "ballerina/log:2.17.0:Module"
+              },
+              "description": ""
+            },
+            "keyValues": {
+              "type": "object",
+              "properties": {
+                "msg": {},
+                "message": {},
+                "time": {},
+                "level": {},
+                "error": {},
+                "stackTrace": {},
+                "module": {},
+                "icp\\.runtimeId": {}
+              },
+              "additionalProperties": false,
+              "name": "ballerina/log:2.17.0:AnydataKeyValues",
+              "description": ""
+            },
+            "format": {
+              "enum": [
+                "logfmt",
+                "json"
+              ],
+              "description": ""
+            },
+            "level": {
+              "enum": [
+                "WARN",
+                "INFO",
+                "ERROR",
+                "DEBUG"
+              ],
+              "description": ""
+            },
+            "enableSensitiveDataMasking": {
+              "type": "boolean",
+              "description": ""
             }
-          ]
-        }
-      }
-    },
-    "pineconeconfig": {
-      "type": "object",
-      "title": "Pinecone Configuration",
-      "properties": {
-        "pineconeApiKey": {
-          "type": "string",
-          "format": "password",
-          "title": "Pinecone API Key"
-        },
-        "pineconeIndex": {
-          "type": "string",
-          "title": "Pinecone Index Name"
+          },
+          "additionalProperties": false
         }
       },
-      "required": ["pineconeApiKey", "pineconeIndex"]
-    },
-    "embeddingconfig": {
-      "type": "object",
-      "title": "Embedding Configuration",
-      "properties": {
-        "embeddingProvider": {
-          "type": "string",
-          "title": "Embedding Provider",
-          "enum": ["openai", "azure-openai", "mistral"]
-        },
-        "embeddingApiKey": {
-          "type": "string",
-          "format": "password",
-          "title": "Embedding API Key",
-          "description": "API key for OpenAI, Azure OpenAI, or Mistral"
-        },
-        "embeddingModel": {
-          "type": "string",
-          "title": "Embedding Model",
-          "enum": [
-            "text-embedding-3-small",
-            "text-embedding-3-large",
-            "text-embedding-ada-002",
-            "mistral-embed"
-          ]
-        },
-        "azureBaseUrl": {
-          "type": "string",
-          "title": "Azure Base URL",
-          "description": "Format: https://resource-name.openai.azure.com/openai"
-        },
-        "azureApiVersion": {
-          "type": "string",
-          "title": "Azure API Version",
-          "default": "2024-06-01",
-          "description": "Example: 2024-06-01"
-        }
-      },
-      "required": ["embeddingProvider", "embeddingApiKey"],
-      "dependencies": {
-        "embeddingProvider": {
-          "oneOf": [
-            {
-              "properties": { "embeddingProvider": { "const": "openai" } },
-              "required": ["embeddingModel"]
-            },
-            {
-              "properties": { "embeddingProvider": { "const": "azure-openai" } },
-              "required": ["embeddingModel", "azureBaseUrl", "azureApiVersion"]
-            },
-            {
-              "properties": { "embeddingProvider": { "const": "mistral" } },
-              "required": ["embeddingModel"]
-            }
-          ]
-        }
-      }
-    },
-    "chunkingconfig": {
-      "type": "object",
-      "title": "Chunking Configuration",
-      "properties": {
-        "chunkingStrategy": {
-          "type": "string",
-          "enum": ["recursive", "sentence", "character"],
-          "title": "Chunking Strategy"
-        },
-        "maxSegmentSize": {
-          "type": "integer",
-          "minimum": 1,
-          "default": 1000,
-          "title": "Max Segment Size (characters)"
-        },
-        "maxOverlapSize": {
-          "type": "integer",
-          "minimum": 0,
-          "default": 200,
-          "title": "Max Overlap Size (characters)"
-        }
-      },
-      "required": ["chunkingStrategy", "maxSegmentSize", "maxOverlapSize"]
+      "additionalProperties": false
     }
-  }
+  },
+  "additionalProperties": false
 }
