@@ -157,6 +157,5 @@
       },
       "required": ["chunkingStrategy", "maxSegmentSize", "maxOverlapSize"]
     }
-  },
-   "requiredLevel": 2
+  }
 }
