@@ -37,7 +37,29 @@
           "title": "Refresh Token (OAuth)"
         }
       },
-        "required": ["gdriveAuthType", "gdriveFolderId"]
+      "required": ["gdriveAuthType", "gdriveFolderId"],
+      "dependencies": {
+        "gdriveAuthType": {
+          "oneOf": [
+            {
+              "properties": {
+                "gdriveAuthType": {
+                  "const": "api_Key"
+                }
+              },
+              "required": ["gdriveApiKey"]
+            },
+            {
+              "properties": {
+                "gdriveAuthType": {
+                  "const": "oauth"
+                }
+              },
+              "required": ["clientId", "clientSecret", "refreshToken"]
+            }
+          ]
+        }
+      }
     },
     "pineconeconfig": {
       "type": "object",
@@ -87,7 +109,46 @@
           "description": "Required if using Azure OpenAI. Example: 2024-06-01"
         }
       },
-      "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey"]
+      "required": ["embeddingProvider", "embeddingApiKey"],
+      "dependencies": {
+        "embeddingProvider": {
+          "oneOf": [
+            {
+              "properties": {
+                "embeddingProvider": {
+                  "const": "openai"
+                },
+                "embeddingModel": {
+                  "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+                }
+              },
+              "required": ["embeddingModel"]
+            },
+            {
+              "properties": {
+                "embeddingProvider": {
+                  "const": "azure-openai"
+                },
+                "embeddingModel": {
+                  "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+                }
+              },
+              "required": ["embeddingModel", "azureBaseUrl", "azureApiVersion"]
+            },
+            {
+              "properties": {
+                "embeddingProvider": {
+                  "const": "mistral"
+                },
+                "embeddingModel": {
+                  "enum": ["mistral-embed"]
+                }
+              },
+              "required": ["embeddingModel"]
+            }
+          ]
+        }
+      }
     },
     "chunkingconfig": {
       "type": "object",
@@ -116,115 +177,5 @@
   },
   "required": ["googledriveconfig", "pineconeconfig", "embeddingconfig", "chunkingconfig"],
   "additionalProperties": false,
-  "allOf": [
-      {
-        "if": {
-          "properties": {
-            "googledriveconfig": {
-              "properties": {
-                "gdriveAuthType": { "const": "api_Key" }
-              }
-            }
-          }
-        },
-        "then": {
-          "properties": {
-            "googledriveconfig": {
-              "required": ["gdriveAuthType", "gdriveApiKey", "gdriveFolderId"]
-            }
-          }
-        }
-      },
-      {
-        "if": {
-          "properties": {
-            "googledriveconfig": {
-              "properties": {
-                "gdriveAuthType": { "const": "oauth" }
-              }
-            }
-          }
-        },
-        "then": {
-          "properties": {
-            "googledriveconfig": {
-              "required": ["gdriveAuthType", "clientId", "clientSecret", "refreshToken", "gdriveFolderId"]
-            }
-          }
-        }
-      },
-    {
-      "if": {
-        "properties": {
-          "embeddingconfig": {
-            "properties": {
-              "embeddingProvider": {
-                "const": "openai"
-              }
-            }
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "embeddingconfig": {
-            "properties": {
-              "embeddingModel": {
-                "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "embeddingconfig": {
-            "properties": {
-              "embeddingProvider": {
-                "const": "azure-openai"
-              }
-            }
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "embeddingconfig": {
-            "properties": {
-              "embeddingModel": {
-                "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
-              }
-            },
-            "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey", "azureBaseUrl", "azureApiVersion"]
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "embeddingconfig": {
-            "properties": {
-              "embeddingProvider": {
-                "const": "mistral"
-              }
-            }
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "embeddingconfig": {
-            "properties": {
-              "embeddingModel": {
-                "enum": ["mistral-embed"]
-              }
-            }
-          }
-        }
-      }
-    }
-  ]
+  "requiredLevel": 3
 }
