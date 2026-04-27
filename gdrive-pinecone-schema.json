@@ -177,5 +177,5 @@
   },
   "required": ["googledriveconfig", "pineconeconfig", "embeddingconfig", "chunkingconfig"],
   "additionalProperties": false,
-  "requiredLevel": 3
+  "requiredLevel": 2
 }
