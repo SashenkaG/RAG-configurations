@@ -37,29 +37,7 @@
           "title": "Refresh Token (OAuth)"
         }
       },
-      "required": ["gdriveAuthType", "gdriveFolderId"],
-      "dependencies": {
-        "gdriveAuthType": {
-          "oneOf": [
-            {
-              "properties": {
-                "gdriveAuthType": {
-                  "const": "api_Key"
-                }
-              },
-              "required": ["gdriveApiKey"]
-            },
-            {
-              "properties": {
-                "gdriveAuthType": {
-                  "const": "oauth"
-                }
-              },
-              "required": ["clientId", "clientSecret", "refreshToken"]
-            }
-          ]
-        }
-      }
+      "required": ["gdriveAuthType", "gdriveApiKey", "gdriveFolderId"]
     },
     "pineconeconfig": {
       "type": "object",
@@ -109,46 +87,7 @@
           "description": "Required if using Azure OpenAI. Example: 2024-06-01"
         }
       },
-      "required": ["embeddingProvider", "embeddingApiKey"],
-      "dependencies": {
-        "embeddingProvider": {
-          "oneOf": [
-            {
-              "properties": {
-                "embeddingProvider": {
-                  "const": "openai"
-                },
-                "embeddingModel": {
-                  "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
-                }
-              },
-              "required": ["embeddingModel"]
-            },
-            {
-              "properties": {
-                "embeddingProvider": {
-                  "const": "azure-openai"
-                },
-                "embeddingModel": {
-                  "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
-                }
-              },
-              "required": ["embeddingModel", "azureBaseUrl", "azureApiVersion"]
-            },
-            {
-              "properties": {
-                "embeddingProvider": {
-                  "const": "mistral"
-                },
-                "embeddingModel": {
-                  "enum": ["mistral-embed"]
-                }
-              },
-              "required": ["embeddingModel"]
-            }
-          ]
-        }
-      }
+      "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey"]
     },
     "chunkingconfig": {
       "type": "object",
