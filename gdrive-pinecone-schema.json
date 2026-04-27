@@ -37,7 +37,7 @@
           "title": "Refresh Token (OAuth)"
         }
       },
-      "required": ["gdriveAuthType", "gdriveApiKey", "gdriveFolderId"]
+      "required": ["gdriveAuthType", "gdriveFolderId"]
     },
     "pineconeconfig": {
       "type": "object",
@@ -116,5 +116,115 @@
   },
   "required": ["googledriveconfig", "pineconeconfig", "embeddingconfig", "chunkingconfig"],
   "additionalProperties": false,
-  "requiredLevel": 2
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "googledriveconfig": {
+            "properties": {
+              "gdriveAuthType": { "const": "api_Key" }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "googledriveconfig": {
+            "required": ["gdriveAuthType", "gdriveApiKey", "gdriveFolderId"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "googledriveconfig": {
+            "properties": {
+              "gdriveAuthType": { "const": "oauth" }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "googledriveconfig": {
+            "required": ["gdriveAuthType", "clientId", "clientSecret", "refreshToken", "gdriveFolderId"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "embeddingconfig": {
+            "properties": {
+              "embeddingProvider": {
+                "const": "openai"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "embeddingconfig": {
+            "properties": {
+              "embeddingModel": {
+                "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "embeddingconfig": {
+            "properties": {
+              "embeddingProvider": {
+                "const": "azure-openai"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "embeddingconfig": {
+            "properties": {
+              "embeddingModel": {
+                "enum": ["text-embedding-3-small", "text-embedding-3-large", "text-embedding-ada-002"]
+              }
+            },
+            "required": ["embeddingProvider", "embeddingModel", "embeddingApiKey", "azureBaseUrl", "azureApiVersion"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "embeddingconfig": {
+            "properties": {
+              "embeddingProvider": {
+                "const": "mistral"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "embeddingconfig": {
+            "properties": {
+              "embeddingModel": {
+                "enum": ["mistral-embed"]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }
