@@ -101,6 +101,7 @@
   },
   "required": ["amazons3config", "pineconeconfig", "embeddingconfig", "chunkingconfig"],
   "additionalProperties": false,
+  "requiredLevel": 2,
   "allOf": [
     {
       "if": {

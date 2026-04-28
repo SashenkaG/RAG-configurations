@@ -104,6 +104,7 @@
   },
   "required": ["amazons3config", "chromaconfig", "embeddingconfig", "chunkingconfig"],
   "additionalProperties": false,
+  "requiredLevel": 2,
   "allOf": [
     {
       "if": {

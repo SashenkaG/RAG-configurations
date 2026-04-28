@@ -120,6 +120,7 @@
   },
   "required": ["googledriveconfig", "weaviateconfig", "embeddingconfig", "chunkingconfig"],
   "additionalProperties": false,
+  "requiredLevel": 2,
   "allOf": [
     {
       "if": {

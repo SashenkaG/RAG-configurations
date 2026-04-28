@@ -119,6 +119,7 @@
   },
   "required": ["googledriveconfig", "chromaconfig", "embeddingconfig", "chunkingconfig"],
   "additionalProperties": false,
+  "requiredLevel": 2,
   "allOf": [
     {
       "if": {
