@@ -5,7 +5,7 @@
 
 <summary>Data Source Setup</summary>
 
-### Google Drive
+#### Google Drive
 
 #### Method 1: API Key (Recommended for simple setup)
 
@@ -34,7 +34,7 @@ Use this method if the API Key method doesn't work for your use case.
 <details>
 <summary>Vector Database Setup</summary>
 
-### Weaviate
+#### Weaviate
 
 - Set up Weaviate:
 	- Log in to your Weaviate Cloud Console
@@ -49,20 +49,20 @@ Use this method if the API Key method doesn't work for your use case.
 <details>
 <summary>Embedding Model Setup</summary>
 
-### OpenAI
+#### OpenAI
 
 - Go to OpenAI platform and login to your account
 - In the left sidebar, click on "API keys"
 - Click the "Create secret key" button
 - Copy the key and store it securely
 
-### Mistral AI
+#### Mistral AI
 
 - Go to Mistral AI console
 - Go to the API Keys section from the left-hand navigation bar
 - Copy it and store it securely
 
-### Azure OpenAI
+#### Azure OpenAI
 
 - Go to Azure OpenAI Service
 - Go to the Keys and Endpoint section located in the left-hand navigation menu under "Resource Management"

@@ -5,7 +5,7 @@
 
 <summary>Data Source Setup</summary>
 
-### Google Drive
+#### Google Drive
 
 #### Method 1: API Key (Recommended for simple setup)
 
@@ -34,7 +34,7 @@ Use this method if the API Key method doesn't work for your use case.
 <details>
 <summary>Vector Database Setup</summary>
 
-### PostgreSQL
+#### PostgreSQL
 
 - PostgreSQL Setup:
 	- Ensure PostgreSQL is installed and running

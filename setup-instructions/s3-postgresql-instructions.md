@@ -5,7 +5,7 @@
 
 <summary>Data Source Setup</summary>
 
-### Amazon S3
+#### Amazon S3
 
 - Set up AWS credentials:
 	- Log in to AWS Management Console
@@ -23,7 +23,7 @@
 <details>
 <summary>Vector Database Setup</summary>
 
-### PostgreSQL
+#### PostgreSQL
 
 - PostgreSQL Setup:
 	- Ensure PostgreSQL is installed and running
@@ -39,20 +39,20 @@
 <details>
 <summary>Embedding Model Setup</summary>
 
-### OpenAI
+#### OpenAI
 
 - Go to OpenAI platform and login to your account
 - In the left sidebar, click on "API keys"
 - Click the "Create secret key" button
 - Copy the key and store it securely
 
-### Mistral AI
+#### Mistral AI
 
 - Go to Mistral AI console
 - Go to the API Keys section from the left-hand navigation bar
 - Copy it and store it securely
 
-### Azure OpenAI
+#### Azure OpenAI
 
 - Go to Azure OpenAI Service
 - Go to the Keys and Endpoint section located in the left-hand navigation menu under "Resource Management"
