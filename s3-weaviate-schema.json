@@ -105,7 +105,7 @@
   },
   "required": ["amazons3config", "weaviateconfig", "embeddingconfig", "chunkingconfig"],
   "additionalProperties": false,
-  "requiredLevel": 3,
+  "requiredLevel": 2,
   "allOf": [
     {
       "if": {
