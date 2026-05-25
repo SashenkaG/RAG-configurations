@@ -1,10 +1,9 @@
-DataSource["AWS S3"]
-Chunking["Document Chunking"]
-Embedding["Embedding Generation"]
-Ingestion["Data Ingestion"]
-VectorDB["Chroma"]
+A(["Begin"]):::startNode
+B["Fetch from AWS S3"]:::processNode
+C["Document Chunking"]:::processNode
+D["Embedding Generation"]:::processNode
+E["Data Ingestion"]:::processNode
+F["Store in Chroma"]:::processNode
+G(["Complete"]):::endNode
 
-DataSource --> Chunking
-Chunking --> Embedding
-Embedding --> Ingestion
-Ingestion --> VectorDB
+A --> B --> C --> D --> E --> F --> G

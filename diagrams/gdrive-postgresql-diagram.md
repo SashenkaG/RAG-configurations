@@ -1,10 +1,9 @@
-DataSource["Google Drive"]
-Chunking["Document Chunking"]
-Embedding["Embedding Generation"]
-Ingestion["Data Ingestion"]
-VectorDB["PostgreSQL"]
+A(["Begin"]):::startNode
+B["Read from Google Drive"]:::processNode
+C["Document Chunking"]:::processNode
+D["Embedding Generation"]:::processNode
+E["Data Ingestion"]:::processNode
+F["Store in PostgreSQL"]:::processNode
+G(["Complete"]):::endNode
 
-DataSource --> Chunking
-Chunking --> Embedding
-Embedding --> Ingestion
-Ingestion --> VectorDB
+A --> B --> C --> D --> E --> F --> G
